@@ -1,19 +1,21 @@
-class Medicamento:
-    nome = ''
-    nome_científico = ''
-    tarja = ''
-    local = ''
-    ativo = False
+class Medicamentos:
+    def __init__(self, nome, nome_cientifico, tarja, local):
+        self.nome = nome
+        self.nome_cientifico = nome_cientifico
+        self.tarja = tarja
+        self.local = local
+        self.estoque = False
 
-medicamento_tadalafila = Medicamento()
-medicamento_buscopan = Medicamento()
-medicamento_paracetamol = Medicamento()
+    def __str__(self):
+        return f'{self.nome} | {self.nome_cientifico} | {self.tarja} | {self.local} | {self.estoque}'
 
-medicamento_tadalafila.nome = 'tadalafila'
-medicamento_tadalafila.nome_científico = 'Cialis'
+medicamento_tadalafila = Medicamentos('Tadalafila', 'Cialis', 'Vermelha', 'Morumbi')
+medicamento_buscopan = Medicamentos('Buscopan', 'butilbrometo de escopolamina', 'Amarela', 'Vila A')
+medicamento_paracetamol = Medicamentos('Paracetamol', 'Acetaminofeno', 'Branca', 'Centro')
 
-medicamentos = [medicamento_tadalafila, medicamento_buscopan]
+medicamentos = [medicamento_tadalafila, medicamento_buscopan, medicamento_paracetamol]
 
-print(medicamentos)
 print(medicamento_tadalafila)
-print(dir(medicamento_tadalafila))
+print(medicamento_buscopan)
+print(medicamento_paracetamol)
+

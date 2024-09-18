@@ -1,3 +1,5 @@
+from modelos.valor import Valor
+
 class Medicamentos:
     medicamentos = []
 
@@ -7,6 +9,7 @@ class Medicamentos:
         self._tarja = tarja
         self._local = local.title()
         self._estoque = False
+        self._valor = []
         Medicamentos.medicamentos.append(self)
 
     def __str__(self):
@@ -30,10 +33,10 @@ class Medicamentos:
 ██████╔╝██║██████╔╝██║░░░░░╚█████╔╝██║░╚███║██║░░╚██╔╝░░███████╗██║██████╔╝
 ╚═════╝░╚═╝╚═════╝░╚═╝░░░░░░╚════╝░╚═╝░░╚══╝╚═╝░░░╚═╝░░░╚══════╝╚═╝╚═════╝░ ''')
         
-        print(f'{'Nome do medicamento'.ljust(20)} | {'Nome científico'.ljust(20)} | {'Tarja'.ljust(20)} | {'Local'.ljust(20)} | {'Estoque'}')
+        print(f'{'Nome do medicamento'.ljust(20)} | {'Nome científico'.ljust(20)} | {'Tarja'.ljust(20)} | {'Local'.ljust(20)} | {'Estoque'.ljust(20)}')
         print('------------------------------------------------------------------------------------------------------------------------------')
         for medicamento in cls.medicamentos:
-            print(f'{medicamento._nome.ljust(20)} | {medicamento._nome_cientifico.ljust(20)} | {medicamento._tarja.ljust(20)} | {medicamento._local.ljust(20)} | {medicamento.estoque}')
+            print(f'{medicamento._nome.ljust(20)} | {medicamento._nome_cientifico.ljust(20)} | {medicamento._tarja.ljust(20)} | {medicamento._local.ljust(20)} | {medicamento.estoque.ljust(20)} | {medicamento.media_preço}')
             print('-------------------------------------------------------------------------------------------------------------------------')
 
     @property
@@ -43,4 +46,17 @@ class Medicamentos:
     def alterar_estado(self):
         self._estoque = not self._estoque        
 
-Medicamentos.listar_medicamentos()
+    def receber_preço(self, farmacia, preço):
+        preço = Valor(farmacia, preço)
+        self._valor.append(preço)
+
+    @property
+    def media_preço(self):
+        if not self._valor:
+            return 0 
+        somas_dos_preços = sum(valor._preço for valor in self._valor)
+        quantidade_farmacia = len(self._valor)
+        media = round(somas_dos_preços/quantidade_farmacia, 1)
+        return media
+
+
